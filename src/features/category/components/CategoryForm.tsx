@@ -1,6 +1,5 @@
 import { FormEvent, useState } from 'react';
 
-import { createCategory, updateCategory } from '@/services/category';
 import Form from '@/components/Form';
 import EmojiSelect from '@/components/EmojiSelect';
 import { Category } from '@/types/entities';
@@ -13,33 +12,38 @@ interface CategoryFormElements extends HTMLFormElement {
 }
 
 interface Props {
-  mode: 'create' | 'edit';
-  id?: number;
+  isLoading: boolean;
   initialValue?: Category;
+  onSubmit: (payload: Category) => void;
 }
 
-export function CategoryForm({ mode, id, initialValue }: Props) {
+export function CategoryForm({
+  onSubmit,
+  isLoading = false,
+  initialValue,
+}: Props) {
   const [emoji, setEmoji] = useState<string>(initialValue?.emoji || '');
-  const [isSubmitting, setSubmitting] = useState(false);
 
   const handleSubmit = async (event: FormEvent<CategoryFormElements>) => {
     event.preventDefault();
-    setSubmitting(true);
 
     const { categoryName } = event.currentTarget.elements;
-    if (mode === 'create') {
-      await createCategory(categoryName.value, emoji);
-    } else if (id && mode === 'edit') {
-      await updateCategory(id, categoryName.value, emoji);
-    }
 
-    setSubmitting(false);
-    window.history.back();
+    const values = {
+      emoji,
+      name: categoryName.value,
+    } as Category;
+
+    onSubmit(values);
+  };
+
+  const onSelectEmoji = (emoji: string) => {
+    setEmoji(emoji);
   };
 
   return (
     <Form
-      isSubmitting={isSubmitting}
+      isSubmitting={isLoading}
       onSubmit={handleSubmit}
       className="flex flex-col justify-between h-full gap-2 pb-2"
     >
@@ -53,11 +57,11 @@ export function CategoryForm({ mode, id, initialValue }: Props) {
             placeholder="Type here"
             className="input input-bordered w-full"
             name="categoryName"
-            disabled={isSubmitting}
+            disabled={isLoading}
             defaultValue={initialValue?.name}
           />
         </div>
-        <EmojiSelect onSelected={(emoji: string) => setEmoji(emoji)} />
+        <EmojiSelect onSelected={onSelectEmoji} />
       </div>
     </Form>
   );

@@ -2,7 +2,7 @@ import ky from '@/lib/ky';
 import { AllPeriodResponse, PeriodResponse } from '@/types/api';
 
 export async function getPeriod(): Promise<AllPeriodResponse> {
-  const response = await ky.get('period', { cache: 'no-store' });
+  const response = await ky.get('period');
 
   if (!response.ok) {
     throw new Error(`fetch error: ${response.statusText}`);
@@ -11,23 +11,30 @@ export async function getPeriod(): Promise<AllPeriodResponse> {
   return await response.json();
 }
 
-export async function getPeriodById(id: number): Promise<PeriodResponse> {
-  const response = await ky.get(`period/${id}`, { cache: 'no-store' });
+export async function getPeriodById(id?: string): Promise<PeriodResponse> {
+  if (!id) {
+    throw new Error('id should be provided');
+  }
+  const response = await ky.get(`period/${id}`);
 
   if (!response.ok) {
     throw new Error(`fetch error: ${response.statusText}`);
   }
 
   return await response.json();
+}
+
+interface CreatePayload {
+  name: string;
+  startDate: Date;
+  endDate: Date;
 }
 
 export async function createPeriod(
-  name: string,
-  startDate: Date,
-  endDate: Date
+  payload: CreatePayload
 ): Promise<PeriodResponse> {
   const response = await ky.post('period', {
-    json: { name, startDate, endDate },
+    json: payload,
   });
 
   if (!response.ok) {
@@ -37,14 +44,18 @@ export async function createPeriod(
   return await response.json();
 }
 
+interface EditPayload extends CreatePayload {
+  id?: string;
+}
+
 export async function updatePeriod(
-  id: number,
-  name: string,
-  startDate: Date,
-  endDate: Date
+  payload: EditPayload
 ): Promise<PeriodResponse> {
-  const response = await ky.patch(`period/${id}`, {
-    json: { name, startDate, endDate },
+  if (!payload.id) {
+    throw new Error('id should be provided');
+  }
+  const response = await ky.patch(`period/${payload.id}`, {
+    json: payload,
   });
 
   if (!response.ok) {

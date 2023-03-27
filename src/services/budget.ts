@@ -11,7 +11,10 @@ export async function getBudget(): Promise<AllBudgetResponse> {
   return await response.json();
 }
 
-export async function getBudgetById(id: number): Promise<BudgetResponse> {
+export async function getBudgetById(id?: string): Promise<BudgetResponse> {
+  if (!id) {
+    throw new Error(`fetch error: id is required`);
+  }
   const response = await ky.get(`budget/${id}`);
 
   if (!response.ok) {
@@ -21,14 +24,17 @@ export async function getBudgetById(id: number): Promise<BudgetResponse> {
   return await response.json();
 }
 
+interface CreatePayload {
+  name: string;
+  amount: number;
+  periodId: number;
+  categoryId: number;
+}
 export async function createBudget(
-  name: string,
-  amount: number,
-  periodId: number,
-  categoryId: number
+  payload: CreatePayload
 ): Promise<BudgetResponse> {
   const response = await ky.post('budget', {
-    json: { name, amount, periodId, categoryId },
+    json: payload,
   });
 
   if (!response.ok) {
@@ -38,15 +44,17 @@ export async function createBudget(
   return await response.json();
 }
 
+interface EditPayload extends CreatePayload {
+  id?: string;
+}
 export async function updateBudget(
-  id: number,
-  name: string,
-  amount: number,
-  periodId: number,
-  categoryId: number
+  payload: EditPayload
 ): Promise<BudgetResponse> {
-  const response = await ky.patch(`budget/${id}`, {
-    json: { name, amount, periodId, categoryId },
+  if (!payload.id) {
+    throw new Error(`fetch error: id is required`);
+  }
+  const response = await ky.patch(`budget/${payload.id}`, {
+    json: payload,
   });
 
   if (!response.ok) {

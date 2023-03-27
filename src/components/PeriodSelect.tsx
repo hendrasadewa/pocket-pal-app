@@ -1,15 +1,17 @@
+import { getPeriod } from '@/services/period';
+import { useQuery } from '@tanstack/react-query';
 import { HTMLAttributes } from 'react';
 
-interface Props extends HTMLAttributes<HTMLSelectElement> {
-  options: { id: number; name: string }[];
-  isLoading?: boolean;
-}
+interface Props extends HTMLAttributes<HTMLSelectElement> {}
 
-export default function PeriodSelect({
-  options,
-  isLoading = false,
-  ...rest
-}: Props) {
+export default function PeriodSelect({ ...rest }: Props) {
+  const { isLoading, data } = useQuery({
+    queryKey: ['period'],
+    queryFn: getPeriod,
+  });
+
+  const options = data?.result || [];
+
   return (
     <select
       name="periodId"

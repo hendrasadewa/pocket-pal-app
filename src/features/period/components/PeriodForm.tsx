@@ -15,43 +15,34 @@ interface PeriodFormElements extends HTMLFormElement {
 }
 
 interface Props {
-  mode: 'create' | 'edit';
-  id?: number;
+  onSubmit: (payload: Period) => void;
+  isLoading: boolean;
   initialValue?: Period;
 }
 
-export default function PeriodForm({ mode, id, initialValue }: Props) {
-  const [isSubmitting, setSubmitting] = useState(false);
+export default function PeriodForm({
+  onSubmit,
+  isLoading,
+  initialValue,
+}: Props) {
   const handleSubmit = async (event: FormEvent<PeriodFormElements>) => {
     event.preventDefault();
-    setSubmitting(true);
 
     const { periodName, startDate, endDate } = event.currentTarget.elements;
 
-    if (mode === 'create') {
-      await createPeriod(
-        periodName.value,
-        new Date(startDate.value),
-        new Date(endDate.value)
-      );
-    }
+    const values = {
+      name: periodName.value,
+      startDate: new Date(startDate.value),
+      endDate: new Date(endDate.value),
+    } as Period;
 
-    if (id && mode === 'edit') {
-      await updatePeriod(
-        id,
-        periodName.value,
-        new Date(startDate.value),
-        new Date(endDate.value)
-      );
-    }
-    setSubmitting(false);
-    window.history.back();
+    onSubmit(values);
   };
 
   return (
     <Form
       onSubmit={handleSubmit}
-      isSubmitting={isSubmitting}
+      isSubmitting={isLoading}
       className="flex flex-col justify-between h-full gap-2 pb-2"
     >
       <div className="flex flex-col gap-2">

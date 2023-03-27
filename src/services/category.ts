@@ -11,7 +11,11 @@ export async function getCategory(): Promise<AllCategoryResponse> {
   return await response.json();
 }
 
-export async function getCategoryById(id: number): Promise<CategoryResponse> {
+export async function getCategoryById(id?: string): Promise<CategoryResponse> {
+  if (!id) {
+    throw new Error('id should be provided');
+  }
+
   const response = await ky.get(`category/${id}`);
 
   if (!response.ok) {
@@ -21,12 +25,16 @@ export async function getCategoryById(id: number): Promise<CategoryResponse> {
   return await response.json();
 }
 
+interface CreatePayload {
+  name: string;
+  emoji: string;
+}
+
 export async function createCategory(
-  name: string,
-  emoji: string
+  payload: CreatePayload
 ): Promise<CategoryResponse> {
   const response = await ky.post('category', {
-    json: { name, emoji },
+    json: payload,
   });
 
   if (!response.ok) {
@@ -36,13 +44,19 @@ export async function createCategory(
   return await response.json();
 }
 
+interface EditPayload extends CreatePayload {
+  id?: string;
+}
+
 export async function updateCategory(
-  id: number,
-  name: string,
-  emoji: string
+  payload: EditPayload
 ): Promise<CategoryResponse> {
-  const response = await ky.patch(`category/${id}`, {
-    json: { name, emoji },
+  if (!payload.id) {
+    throw new Error('id should be provided');
+  }
+
+  const response = await ky.patch(`category/${payload.id}`, {
+    json: payload,
   });
 
   if (!response.ok) {

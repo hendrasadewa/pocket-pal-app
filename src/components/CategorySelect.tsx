@@ -1,15 +1,17 @@
+import { getCategory } from '@/services/category';
+import { useQuery } from '@tanstack/react-query';
 import { HTMLAttributes } from 'react';
 
-interface Props extends HTMLAttributes<HTMLSelectElement> {
-  options: { id: number; name: string }[];
-  isLoading?: boolean;
-}
+interface Props extends HTMLAttributes<HTMLSelectElement> {}
 
-export default function CategorySelect({
-  options,
-  isLoading = false,
-  ...rest
-}: Props) {
+export default function CategorySelect({ ...rest }: Props) {
+  const { isLoading, data } = useQuery({
+    queryKey: ['category'],
+    queryFn: getCategory,
+  });
+
+  const options = data?.result || [];
+
   return (
     <select
       name="categoryId"

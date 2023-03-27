@@ -3,11 +3,10 @@ import { Box, Calendar, PiggyBank } from 'iconoir-react';
 
 import ListContainer from '@/components/ListContainer';
 import ListItem from '@/components/ListItem';
-import Screen from '@/components/Screen';
 
 function ManagePage() {
   return (
-    <Screen title="Manage">
+    <>
       <ListContainer>
         <Link to="/manage/category">
           <ListItem
@@ -43,7 +42,7 @@ function ManagePage() {
           />
         </Link>
       </ListContainer>
-    </Screen>
+    </>
   );
 }
 
