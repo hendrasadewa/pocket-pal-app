@@ -2,6 +2,7 @@ import { createBrowserRouter } from 'react-router-dom';
 
 import ErrorPage from '@/pages/ErrorPage';
 import RootPage from '@/pages/RootPage';
+import ManagePage from '@/pages/ManagePage';
 
 const router = createBrowserRouter([
   {
@@ -19,7 +20,69 @@ const router = createBrowserRouter([
   },
   {
     path: '/manage',
-    element: <RootPage />,
+    element: <ManagePage />,
+    children: [
+      {
+        path: 'budget',
+        element: <RootPage />,
+        children: [
+          {
+            path: 'add',
+            element: <RootPage />,
+          },
+          {
+            path: ':id',
+            element: <RootPage />,
+            children: [
+              {
+                path: 'edit',
+                element: <RootPage />,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        path: 'category',
+        element: <RootPage />,
+        children: [
+          {
+            path: 'add',
+            element: <RootPage />,
+          },
+          {
+            path: ':id',
+            element: <RootPage />,
+            children: [
+              {
+                path: 'edit',
+                element: <RootPage />,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        path: 'period',
+        element: <RootPage />,
+        children: [
+          {
+            path: 'add',
+            element: <RootPage />,
+          },
+          {
+            path: ':id',
+            element: <RootPage />,
+            children: [
+              {
+                path: 'edit',
+                element: <RootPage />,
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
 ]);
 
