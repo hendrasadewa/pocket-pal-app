@@ -1,7 +1,8 @@
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+
 import BudgetForm from '@/features/budget/components/BudgetForm';
 import { createBudget } from '@/services/budget';
 import { Budget } from '@/types/entities';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 export default function AddBudgetPage() {
   const queryClient = useQueryClient();

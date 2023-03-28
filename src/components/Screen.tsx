@@ -10,7 +10,7 @@ interface Props {
 
 export default function Screen({ children, title = 'PocketPal' }: Props) {
   return (
-    <div className="bg-slate-50 grid grid-cols-screen grid-rows-screen min-h-screen">
+    <div className="grid grid-cols-screen grid-rows-screen min-h-screen">
       <header className="col-start-1 col-end-7 row-start-1 row-end-2">
         <TopNavigation title={title} />
       </header>
