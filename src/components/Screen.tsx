@@ -15,7 +15,7 @@ export default function Screen({ children, title = 'PocketPal' }: Props) {
         <TopNavigation title={title} />
       </header>
       <main className="col-start-1 col-end-7 px-4">{children}</main>
-      <footer className="col-start-1 col-end-7 row-start-3 row-end-4 h-full bg-slate-100">
+      <footer className="col-start-1 col-end-7 row-start-3 row-end-4  bg-primary-content">
         <BottomNavigation />
       </footer>
     </div>

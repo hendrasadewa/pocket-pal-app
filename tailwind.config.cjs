@@ -8,7 +8,7 @@ module.exports = {
     },
     extend: {
       gridTemplateColumns: {
-        header: '25% 1fr 25%',
+        header: '42px 1fr 48px',
         screen: 'repeat(6, 1fr)',
         'bottom-nav': 'repeat(4, 1fr)',
       },
