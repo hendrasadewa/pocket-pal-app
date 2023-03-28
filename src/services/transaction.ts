@@ -1,8 +1,8 @@
 import ky from '@/lib/ky';
-import { AllCategoryResponse, CategoryResponse } from '@/types/api';
+import { AllTransactionResponse, TransactionResponse } from '@/types/api';
 
-export async function getCategory(): Promise<AllCategoryResponse> {
-  const response = await ky.get('category');
+export async function getTransaction(): Promise<AllTransactionResponse> {
+  const response = await ky.get('transaction');
 
   if (!response.ok) {
     throw new Error(`fetch error: ${response.statusText}`);
@@ -11,12 +11,14 @@ export async function getCategory(): Promise<AllCategoryResponse> {
   return await response.json();
 }
 
-export async function getCategoryById(id?: string): Promise<CategoryResponse> {
+export async function getTransactionById(
+  id?: string
+): Promise<TransactionResponse> {
   if (!id) {
     throw new Error('id should be provided');
   }
 
-  const response = await ky.get(`category/${id}`);
+  const response = await ky.get(`transaction/${id}`);
 
   if (!response.ok) {
     throw new Error(`fetch error: ${response.statusText}`);
@@ -27,13 +29,16 @@ export async function getCategoryById(id?: string): Promise<CategoryResponse> {
 
 interface CreatePayload {
   name: string;
-  emoji: string;
+  amount: number;
+  date: Date;
+  budgetId: number;
+  typeId: number;
 }
 
-export async function createCategory(
+export async function createTransaction(
   payload: CreatePayload
-): Promise<CategoryResponse> {
-  const response = await ky.post('category', {
+): Promise<TransactionResponse> {
+  const response = await ky.post('transaction', {
     json: payload,
   });
 
@@ -48,14 +53,14 @@ interface EditPayload extends CreatePayload {
   id?: string;
 }
 
-export async function updateCategory(
+export async function updateTransaction(
   payload: EditPayload
-): Promise<CategoryResponse> {
+): Promise<TransactionResponse> {
   if (!payload.id) {
     throw new Error('id should be provided');
   }
 
-  const response = await ky.patch(`category/${payload.id}`, {
+  const response = await ky.patch(`transaction/${payload.id}`, {
     json: payload,
   });
 

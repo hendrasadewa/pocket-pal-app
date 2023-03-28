@@ -15,7 +15,7 @@ export default function PeriodSelect({ ...rest }: Props) {
   return (
     <select
       name="periodId"
-      className="select w-full"
+      className="select select-bordered w-full"
       disabled={isLoading}
       {...rest}
     >

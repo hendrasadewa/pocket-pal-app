@@ -20,3 +20,19 @@ export interface Budget {
   period?: Period;
   periodId: number;
 }
+
+interface TransactionType {
+  id: number;
+  name: string;
+}
+
+export interface Transaction {
+  id: number;
+  name: string;
+  amount: number;
+  date: Date;
+  budget?: Budget;
+  budgetId: number;
+  type?: TransactionType;
+  typeId: number;
+}

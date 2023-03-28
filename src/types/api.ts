@@ -1,4 +1,4 @@
-import { Budget, Category, Period } from './entities';
+import { Budget, Category, Period, Transaction } from './entities';
 
 // base type def
 export interface CursorPagination {
@@ -20,10 +20,12 @@ export interface BaseResponse<T> {
   pagination: CursorPagination | OffsetPagination;
 }
 
-// response mapper
+// Response Mapper
 export type AllPeriodResponse = BaseResponse<Period[]>;
 export type PeriodResponse = BaseResponse<Period>;
 export type AllCategoryResponse = BaseResponse<Category[]>;
 export type CategoryResponse = BaseResponse<Category>;
 export type AllBudgetResponse = BaseResponse<Budget[]>;
 export type BudgetResponse = BaseResponse<Budget>;
+export type AllTransactionResponse = BaseResponse<Transaction[]>;
+export type TransactionResponse = BaseResponse<Transaction>;

@@ -12,6 +12,9 @@ import ManagePeriodPage from '@/pages/manage/period';
 import ManageCategoryPage from '@/pages/manage/Category';
 import AddCategoryPage from '@/pages/manage/Category/Add';
 import EditCategoryPage from '@/pages/manage/Category/Edit';
+import ManageTransactionPage from '@/pages/manage/transactions';
+import AddTransactionPage from '@/pages/manage/transactions/Add';
+import EditTransactionPage from '@/pages/manage/transactions/Edit';
 
 const router = createBrowserRouter([
   {
@@ -20,9 +23,8 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       // Roots
-      { path: '/home', element: <RootPage /> },
-      { path: '/transactions', element: <RootPage /> },
-      { path: '/analytics', element: <RootPage /> },
+      { path: '/home', element: <div /> },
+      { path: '/analytics', element: <div /> },
       // Manage Section
       { path: '/manage', element: <ManagePage /> },
       // Manage Budget
@@ -37,6 +39,13 @@ const router = createBrowserRouter([
       { path: '/manage/category', element: <ManageCategoryPage /> },
       { path: '/manage/category/add', element: <AddCategoryPage /> },
       { path: '/manage/category/:id/edit', element: <EditCategoryPage /> },
+      // Manage Transactions
+      { path: '/transactions', element: <ManageTransactionPage /> },
+      { path: '/transactions/add', element: <AddTransactionPage /> },
+      {
+        path: '/transactions/:id/edit',
+        element: <EditTransactionPage />,
+      },
     ],
   },
 ]);
