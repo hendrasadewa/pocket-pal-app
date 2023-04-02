@@ -12,6 +12,7 @@ interface Props {
 
 export default function TransactionListItem({ data }: Props) {
   const { budget, date, name, amount, id } = data;
+
   return (
     <div className="flex items-center justify-between p-2">
       <div className="flex items-center gap-2">
@@ -29,7 +30,9 @@ export default function TransactionListItem({ data }: Props) {
       </div>
       <div className="flex items-center justify-end gap-2 ">
         <p className="min-w-[100px]">Rp. {numeral(amount).format('0,0')}</p>
-        <Link to={`/transactions/${id}/edit`}>
+        <Link
+          to={`/transactions/period/${budget?.period?.id}/budget/${budget?.id}/${id}/edit`}
+        >
           <EditPencil />
         </Link>
       </div>

@@ -7,11 +7,11 @@ import TransactionForm from '@/features/transactions/components/TransactionForm'
 
 export default function EditTransactionPage() {
   const queryClient = useQueryClient();
-  const { id } = useParams();
+  const { transactionId } = useParams();
 
   const { data } = useQuery({
-    queryKey: ['transaction', id],
-    queryFn: () => getTransactionById(id),
+    queryKey: ['transaction', transactionId],
+    queryFn: () => getTransactionById(transactionId),
   });
 
   const mutation = useMutation({
@@ -24,7 +24,7 @@ export default function EditTransactionPage() {
 
   const handleSubmit = (payload: Transaction) => {
     mutation.mutate({
-      id: id,
+      id: transactionId,
       name: payload.name,
       amount: payload.amount,
       budgetId: payload.budgetId,

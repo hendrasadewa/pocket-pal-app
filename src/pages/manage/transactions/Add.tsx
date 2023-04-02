@@ -3,6 +3,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Transaction } from '@/types/entities';
 import { createTransaction } from '@/services/transaction';
 import TransactionForm from '@/features/transactions/components/TransactionForm';
+import BudgetByPeriod from '@/features/transactions/components/BudgetByPeriodList';
 
 export default function AddTransactionPage() {
   const queryClient = useQueryClient();
@@ -18,7 +19,5 @@ export default function AddTransactionPage() {
   const handleSubmit = (payload: Transaction) => {
     mutation.mutate(payload);
   };
-  return (
-    <TransactionForm isLoading={mutation.isLoading} onSubmit={handleSubmit} />
-  );
+  return <BudgetByPeriod />;
 }

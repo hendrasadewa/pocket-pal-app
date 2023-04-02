@@ -1,8 +1,21 @@
 import ky from '@/lib/ky';
 import { AllTransactionResponse, TransactionResponse } from '@/types/api';
 
-export async function getTransaction(): Promise<AllTransactionResponse> {
-  const response = await ky.get('transaction');
+export async function getTransaction(
+  periodId?: string,
+  budgetId?: string
+): Promise<AllTransactionResponse> {
+  const searchParams = new URLSearchParams();
+
+  if (periodId) {
+    searchParams.append('periodId', periodId);
+  }
+
+  if (budgetId) {
+    searchParams.append('budgetId', budgetId);
+  }
+
+  const response = await ky.get('transaction', { searchParams });
 
   if (!response.ok) {
     throw new Error(`fetch error: ${response.statusText}`);

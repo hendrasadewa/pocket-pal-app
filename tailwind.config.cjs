@@ -11,6 +11,7 @@ module.exports = {
         header: '42px 1fr 48px',
         screen: 'repeat(6, 1fr)',
         'bottom-nav': 'repeat(4, 1fr)',
+        'top-nav': '24px 1fr 24px',
       },
       gridTemplateRows: {
         screen: '48px 1fr 48px',

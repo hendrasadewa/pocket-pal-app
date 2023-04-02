@@ -1,8 +1,16 @@
 import ky from '@/lib/ky';
 import { AllBudgetResponse, BudgetResponse } from '@/types/api';
 
-export async function getBudget(): Promise<AllBudgetResponse> {
-  const response = await ky.get('budget');
+export async function getBudget(periodId?: string): Promise<AllBudgetResponse> {
+  const searchParams = new URLSearchParams();
+
+  if (periodId) {
+    searchParams.append('periodId', String(periodId));
+  }
+
+  const response = await ky.get('budget', {
+    searchParams,
+  });
 
   if (!response.ok) {
     throw new Error(`fetch error: ${response.statusText}`);

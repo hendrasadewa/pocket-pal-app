@@ -6,7 +6,7 @@ import { getBudget } from '@/services/budget';
 export default function ManageBudgetPage() {
   const { data } = useQuery({
     queryKey: ['budget'],
-    queryFn: getBudget,
+    queryFn: () => getBudget(),
   });
 
   return <BudgetList data={data?.result} />;

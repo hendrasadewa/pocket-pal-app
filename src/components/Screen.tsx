@@ -10,12 +10,14 @@ interface Props {
 
 export default function Screen({ children, title = 'PocketPal' }: Props) {
   return (
-    <div className="grid grid-cols-screen grid-rows-screen min-h-screen">
+    <div className="grid grid-cols-screen grid-rows-screen min-h-screen bg-base-200">
       <header className="col-start-1 col-end-7 row-start-1 row-end-2">
         <TopNavigation title={title} />
       </header>
-      <main className="col-start-1 col-end-7 px-4">{children}</main>
-      <footer className="col-start-1 col-end-7 row-start-3 row-end-4  bg-primary-content">
+      <main className="col-start-1 col-end-7 px-4 overflow-scroll pb-4">
+        {children}
+      </main>
+      <footer className="col-start-1 col-end-7 row-start-3 row-end-4">
         <BottomNavigation />
       </footer>
     </div>

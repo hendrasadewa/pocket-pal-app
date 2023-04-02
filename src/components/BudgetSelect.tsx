@@ -7,7 +7,7 @@ interface Props extends HTMLAttributes<HTMLSelectElement> {}
 export default function BudgetSelect({ ...rest }: Props) {
   const { isLoading, data } = useQuery({
     queryKey: ['budget'],
-    queryFn: getBudget,
+    queryFn: () => getBudget(),
   });
 
   const options = data?.result || [];

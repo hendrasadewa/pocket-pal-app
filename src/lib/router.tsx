@@ -15,6 +15,9 @@ import EditCategoryPage from '@/pages/manage/Category/Edit';
 import ManageTransactionPage from '@/pages/manage/transactions';
 import AddTransactionPage from '@/pages/manage/transactions/Add';
 import EditTransactionPage from '@/pages/manage/transactions/Edit';
+import BudgetByPeriod from '@/features/transactions/components/BudgetByPeriodList';
+import PeriodList from '@/features/transactions/components/PeriodList';
+import TransactionList from '@/features/transactions/components/TransactionList';
 
 const router = createBrowserRouter([
   {
@@ -40,10 +43,24 @@ const router = createBrowserRouter([
       { path: '/manage/category/add', element: <AddCategoryPage /> },
       { path: '/manage/category/:id/edit', element: <EditCategoryPage /> },
       // Manage Transactions
-      { path: '/transactions', element: <ManageTransactionPage /> },
-      { path: '/transactions/add', element: <AddTransactionPage /> },
+
+      { path: '/transactions', element: <TransactionList /> },
+      { path: '/transactions/period', element: <PeriodList /> },
       {
-        path: '/transactions/:id/edit',
+        path: '/transactions/period/:periodId/budget',
+        element: <BudgetByPeriod />,
+      },
+      {
+        path: '/transactions/period/:periodId/budget/:budgetId',
+        element: <TransactionList />,
+      },
+
+      {
+        path: '/transactions/period/:periodId/budget/:budgetId/add',
+        element: <AddTransactionPage />,
+      },
+      {
+        path: '/transactions/period/:periodId/budget/:budgetId/:transactionId/edit',
         element: <EditTransactionPage />,
       },
     ],
