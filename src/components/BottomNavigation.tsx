@@ -15,17 +15,25 @@ export default function BottomNavigation() {
           <Wallet />
         </Link>
       </button>
-      <button className={location.pathname === '/transactions' ? 'active' : ''}>
+      <button
+        className={
+          location.pathname.startsWith('/transactions') ? 'active' : ''
+        }
+      >
         <Link to="/transactions" className="flex items-center justify-center">
           <DataTransferBoth />
         </Link>
       </button>
-      <button className={location.pathname === '/analytics' ? 'active' : ''}>
+      <button
+        className={location.pathname.startsWith('/analytics') ? 'active' : ''}
+      >
         <Link to="/analytics" className="flex items-center justify-center">
           <CandlestickChart />
         </Link>
       </button>
-      <button className={location.pathname === '/manage' ? 'active' : ''}>
+      <button
+        className={location.pathname.startsWith('/manage') ? 'active' : ''}
+      >
         <Link to="/manage" className="flex items-center justify-center">
           <Settings />
         </Link>
