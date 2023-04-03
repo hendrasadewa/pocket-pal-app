@@ -19,6 +19,7 @@ export interface Budget {
   categoryId: number;
   period?: Period;
   periodId: number;
+  transaction?: Transaction[];
 }
 
 interface TransactionType {

@@ -1,8 +1,9 @@
 import { getBudget } from '@/services/budget';
 import { useQuery } from '@tanstack/react-query';
+import numeral from 'numeral';
 
 interface Props {
-  periodId: string;
+  periodId?: string;
 }
 
 export default function TotalBudgetByPeriod({ periodId }: Props) {
@@ -19,11 +20,13 @@ export default function TotalBudgetByPeriod({ periodId }: Props) {
   );
 
   return (
-    <div className="stats shadow">
+    <div className="stats shadow w-full">
       <div className="stat">
-        <div className="stat-title">Total Budgets</div>
-        <div className="stat-value">{totalBudget}</div>
-        <div className="stat-desc">21% more than last month</div>
+        <div className="stat-title text-center">Total Budget</div>
+        <div className="stat-value text-center">
+          Rp. {numeral(totalBudget).format('0,0')}
+        </div>
+        <div className="stat-desc text-center">21% more than last month</div>
       </div>
     </div>
   );

@@ -18,6 +18,7 @@ import EditTransactionPage from '@/pages/manage/transactions/Edit';
 import BudgetByPeriod from '@/features/transactions/components/BudgetByPeriodList';
 import PeriodList from '@/features/transactions/components/PeriodList';
 import TransactionList from '@/features/transactions/components/TransactionList';
+import BudgetByPeriodPage from '@/features/transactions/pages/BudgetByPeriodPage';
 
 const router = createBrowserRouter([
   {
@@ -48,7 +49,7 @@ const router = createBrowserRouter([
       { path: '/transactions/period', element: <PeriodList /> },
       {
         path: '/transactions/period/:periodId/budget',
-        element: <BudgetByPeriod />,
+        element: <BudgetByPeriodPage />,
       },
       {
         path: '/transactions/period/:periodId/budget/:budgetId',
